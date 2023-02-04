@@ -75,4 +75,12 @@ Schema::create('orders', function (Blueprint $table) {
         Product::factory(3)->create();
     }
 ```
-- 
+- create the call to product seeder to be included in `db:seed`
+```sh
+  public function run()
+    {
+        // \App\Models\User::factory(10)->create();
+        $this->call(ProductSeeder::class);
+    }
+```
+
