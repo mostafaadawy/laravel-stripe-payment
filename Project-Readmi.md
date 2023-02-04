@@ -106,3 +106,9 @@ public function index(Request $request)
 ```
 - note that controller is already created when we make the model `mfcs`
 - run the server `php artisan serve`
+- edit the route to begins by our page in `web.php`
+```sh
+Route::get('/', [ProductController::class, 'index']);
+
+```
+- 
