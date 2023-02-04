@@ -17,5 +17,21 @@
 - in stripe webhooks we will configure whenever the checkout completes 
 - we can make request from the server 
 # Implementing this flow with laravel
-
+- create laravel project 
+```sh
+laravel new projectName
+```
+- configure .env
+```sh
+DB_CONNECTION=sqlite
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=laravel_stripe_payment
+# DB_USERNAME=root
+# DB_PASSWORD=
+```
+- create new file `database.sqlite` in databse folder
+- run migrate `php artisan migrate`
+- 
 
