@@ -84,5 +84,14 @@ Schema::create('orders', function (Blueprint $table) {
     }
 ```
 - seed the database `php artisan db:seed`
-- error debuging if you got rename namer in product table to name then run `php artisan migrate:fresh`
+- error debugging if you got rename namer in product table to name then run `php artisan migrate:fresh`
 - run seed the database `php artisan db:seed` again
+- create index for product controller
+```sh
+public function index(Request $request)
+    {
+        $products = Product::all();
+        return view('product.index', compact('products'));
+    }
+```
+- 
