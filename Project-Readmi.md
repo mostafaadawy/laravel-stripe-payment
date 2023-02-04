@@ -105,4 +105,4 @@ public function index(Request $request)
     </body>
 ```
 - note that controller is already created when we make the model `mfcs`
-- 
+- run the server `php artisan serve`
