@@ -68,3 +68,11 @@ Schema::create('orders', function (Blueprint $table) {
         ];
     }
 ```
+- edit product seeder
+```sh
+ public function run()
+    {
+        Product::factory(3)->create();
+    }
+```
+- 
