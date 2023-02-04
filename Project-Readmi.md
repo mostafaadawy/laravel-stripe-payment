@@ -94,4 +94,15 @@ public function index(Request $request)
         return view('product.index', compact('products'));
     }
 ```
+- create blade for that index.blade.php and we can use copy from welcome page and edit it where in our application our main focus on the functionality not the styling
+```sh
+  <body class="antialiased">
+        @foreach ($products as $product)
+            <div>
+                <h2>{{ $product->name }}</h2>
+            </div>
+        @endforeach
+    </body>
+```
+- note that controller is already created when we make the model `mfcs`
 - 
