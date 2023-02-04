@@ -33,5 +33,6 @@ DB_CONNECTION=sqlite
 ```
 - create new file `database.sqlite` in databse folder
 - run migrate `php artisan migrate`
+- make two models with its migrations and factory `php artisan make:model Product -mfsc`
 - 
 
