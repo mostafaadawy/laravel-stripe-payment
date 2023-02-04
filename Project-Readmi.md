@@ -36,4 +36,24 @@ DB_CONNECTION=sqlite
 - make two models with its migrations and factory fro Product `php artisan make:model Product -mfsc`
 - and Order `php artisan make:model Order -mfsc`
 
-- 
+- edit product table
+```sh
+Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('namer',255);
+            $table->decimal('price',2);
+            $table->string('image',124)->nullable();
+            $table->timestamps();
+        });
+```
+- edit order table
+```sh
+Schema::create('orders', function (Blueprint $table) {
+            $table->id();
+            $table->string('status');
+            $table->decimal('total_price',6,2);
+            $table->string('session_id');
+            $table->timestamps();
+        });
+```
+-
