@@ -57,3 +57,5 @@ Schema::create('orders', function (Blueprint $table) {
         });
 ```
 - migrate `php artisan migrate`
+- create index in product controller
+- 
