@@ -36,3 +36,4 @@ DB_CONNECTION=sqlite
 - make two models with its migrations and factory fro Product `php artisan make:model Product -mfsc`
 - and Order `php artisan make:model Order -mfsc`
 
+- 
