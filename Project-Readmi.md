@@ -40,7 +40,7 @@ DB_CONNECTION=sqlite
 ```sh
 Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('namer',255);
+            $table->string('name',255);
             $table->decimal('price',2);
             $table->string('image',124)->nullable();
             $table->timestamps();
@@ -83,4 +83,6 @@ Schema::create('orders', function (Blueprint $table) {
         $this->call(ProductSeeder::class);
     }
 ```
-
+- seed the database `php artisan db:seed`
+- error debuging if you got rename namer in product table to name then run `php artisan migrate:fresh`
+- run seed the database `php artisan db:seed` again
