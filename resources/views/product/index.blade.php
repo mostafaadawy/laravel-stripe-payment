@@ -21,10 +21,20 @@
         </style>
     </head>
     <body class="antialiased">
-        @foreach ($products as $product)
-            <div>
-                <h2>{{ $product->name }}</h2>
+        <div style="display: flex; gap:3rem">
+            @foreach ($products as $product)
+            <div class="flex: 1">
+                <img src="{{ $product->image }}" alt="nothing to show", style="max-width:100%">
+                <h5>{{ $product->name }}</h5>
+                <p>{{ $product->price }}</p>
             </div>
         @endforeach
+        </div>
+
+        <p>
+            <button>
+                CheckOut
+            </button>
+        </p>
     </body>
 </html>

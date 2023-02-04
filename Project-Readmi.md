@@ -109,6 +109,27 @@ public function index(Request $request)
 - edit the route to begins by our page in `web.php`
 ```sh
 Route::get('/', [ProductController::class, 'index']);
+```
+- edit index to be inside `dev`flex gapped 3rem and draw one line
+- add button image and price
+```sh
+    <body class="antialiased">
+        <div style="display: flex; gap:3rem">
+            @foreach ($products as $product)
+            <div class="flex: 1">
+                <img src="{{ $product->image }}" alt="nothing to show", style="max-width:100%">
+                <h5>{{ $product->name }}</h5>
+                <p>{{ $product->price }}</p>
+            </div>
+        @endforeach
+        </div>
 
+        <p>
+            <button>
+                CheckOut
+            </button>
+        </p>
+    </body>
 ```
 - 
+
