@@ -58,4 +58,13 @@ Schema::create('orders', function (Blueprint $table) {
 ```
 - migrate `php artisan migrate`
 - create index in product controller
-- 
+- create product faker note that it is deferent from laravel 7
+```sh
+ {
+        return [
+            'name' => $this->faker->name(),
+            'price' => $this->faker->numberBetween(100,1000),
+            'image' => $this->faker->imageUrl(),
+        ];
+    }
+```
