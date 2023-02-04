@@ -56,4 +56,4 @@ Schema::create('orders', function (Blueprint $table) {
             $table->timestamps();
         });
 ```
--
+- migrate `php artisan migrate`
