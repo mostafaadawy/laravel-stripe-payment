@@ -1,4 +1,4 @@
-# Stripe Laravel Project
+# Stripe Laravel Project for more details see the [ref](https://www.youtube.com/watch?v=J13Xe939Bh8)
 - stripe process flow begins with client requiring buying somethings it sends to the server with its credentials and required product.
 - server connects to stripe gate by a secret key and other object data we get this key from from stripe admin or testing key
 - stripe server will create session object and returns to server
@@ -131,5 +131,18 @@ Route::get('/', [ProductController::class, 'index']);
         </p>
     </body>
 ```
-- 
+# begin stripe flow steps 
+- step 1 when user press check out button we have to send to server the data of the required products to buy
+- for that issue we create submit to checkout 
+- with the post url `Route::post('/checkout', [ProductController::class, 'checkout'])->name('checkout');`
+- edit index
+```sh
+            <form action="{{ route('checkout') }}">
+                @csrf
+                <button>
+                    Checkout
+                </button>
+            </form>
+```
+- install stripe `composer require stripe/stripe-php`
 
