@@ -145,4 +145,7 @@ Route::get('/', [ProductController::class, 'index']);
             </form>
 ```
 - install stripe `composer require stripe/stripe-php`
+- to use stripe we have to check the Doc for [stripe accept payment](https://stripe.com/docs/payments/accept-a-payment) 
+- begging with installation then adding some code snippets from the documentation for stripe session
+- we have to set API key for stripe 
 
