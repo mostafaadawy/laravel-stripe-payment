@@ -32,9 +32,12 @@
         </div>
 
         <p>
-            <button>
-                CheckOut
-            </button>
+            <form action="{{ route('checkout') }}">
+                @csrf
+                <button>
+                    Checkout
+                </button>
+            </form>
         </p>
     </body>
 </html>
