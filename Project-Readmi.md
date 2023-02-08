@@ -235,4 +235,6 @@ Route::get('/', [ProductController::class, 'index']);
 ```
 - error Invalid integer: `Invalid integer: ` when creating session callback error
 - install sqlite viewer for vscode tio check tables `SQLite Viewer`
+- error comes from two reasons first price `'unit_amount' => $product->price * 100,` must be multiplied by 100 cause stripe not allow float but show cent instead of dollar, second because we were calling `product->amount` column which is not exist, and solution is to craete that column and fill it and consider that in price or to fix the amount to `1`
+- when we try checkout now it works well 
 - 

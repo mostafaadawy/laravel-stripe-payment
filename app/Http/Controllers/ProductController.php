@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -29,18 +30,19 @@ class ProductController extends Controller
                     'name' => $product->name,
                     'images' => [$product->image],
                   ],
-                  'unit_amount' => $product->amount,
+                  'unit_amount' => $product->price * 100,
                 ],
-                'quantity' => $product->price *100,
+                'quantity' => 1,
             ];
         }
 
         $session = $stripe->checkout->sessions->create([
-        'line_items' => $lineItems,
-        'mode' => 'payment',
-        'success_url' => route('checkout.success',[],true),
-        'cancel_url' => route('checkout.cancel',[],true),
-        ]);
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url' => route('checkout.success',[],true),
+            'cancel_url' => route('checkout.cancel',[],true),
+            ]);
+
         $order = new Order();
         $order->status='unpaid';
         $order->total_price= $totalPrice;
