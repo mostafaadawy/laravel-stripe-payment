@@ -85,5 +85,9 @@ class ProductController extends Controller
     {
 
     }
+    public function webhook(Request $request)
+    {
+
+    }
 
 }
