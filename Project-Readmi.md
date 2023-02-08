@@ -295,3 +295,5 @@ $session_id= $request->get('session_id');
             ]);
 ```
 - at that moment the customer will be created with its info that we can retrieve if we miss this line the session or payment will be registered as guest which cant retrieve a customer although of this we can get its email or som other info check the returned session json in the two cases
+- actually i also created manually a customer but it doesn't solve the problem but this line solved it `'customer_creation'=> 'always',`
+- 
