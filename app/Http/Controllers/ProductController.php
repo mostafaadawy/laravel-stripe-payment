@@ -29,11 +29,12 @@ class ProductController extends Controller
                     'name' => $product->name,
                     'images' => [$product->image],
                   ],
-                  'unit_amount' => $product->amount *100,
+                  'unit_amount' => $product->amount,
                 ],
-                'quantity' => $product->price,
+                'quantity' => $product->price *100,
             ];
         }
+
         $session = $stripe->checkout->sessions->create([
         'line_items' => $lineItems,
         'mode' => 'payment',
@@ -43,8 +44,7 @@ class ProductController extends Controller
         $order = new Order();
         $order->status='unpaid';
         $order->total_price= $totalPrice;
-        $order->session_id= $totalPrice;
-        $order->status='unpaid';
+        $order->session_id= $session->id;
         $order->save();
 
         return redirect($session->url);
