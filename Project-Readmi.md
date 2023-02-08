@@ -238,6 +238,7 @@ Route::get('/', [ProductController::class, 'index']);
 - error comes from two reasons first price `'unit_amount' => $product->price * 100,` must be multiplied by 100 cause stripe not allow float but show cent instead of dollar, second because we were calling `product->amount` column which is not exist, and solution is to create that column and fill it and consider that in price or to fix the amount to `1`
 - when we try checkout now it works well
 - filling any fake data in card credentials
+- for successful test card number use `4242424242424242`
 - then it will redirect to the success get link that we specify in session
 - but as we can guess here success url is global not specific for certain session id and to avoid this we have to send back session id with success as in [doc for custom success page](https://stripe.com/docs/payments/checkout/custom-success-page) 
 - by inserting `'?session_id={CHECKOUT_SESSION_ID}'` to success url in checkout in product controller `'success_url' => route('checkout.success'.'?session_id={CHECKOUT_SESSION_ID}',[],true),`
@@ -270,4 +271,27 @@ $session_id= $request->get('session_id');
 ```
 - and in page we can show `$customer->name`
 - try the checkout and pay by fake testing any credentials and check the success
-
+# Resource ID Error or stripe error customer is null
+- actually resource id is not the problem, but the error is stripe error customer is null
+- by tracing the error we found that retrieved session is customer is null
+- to solve this error in session creation we have to add `customer_creation: 'always'` as solved in this [link](https://stackoverflow.com/questions/73939920/stripe-payment-session-has-null-customer-field)
+- edit the code to be 
+```sh
+  $session = $stripe->checkout->sessions->create([
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'customer_creation'=> 'always',
+            'success_url' => route('checkout.success',[],true).'?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('checkout.cancel',[],true),
+            ]);
+```
+- instead of 
+```sh
+  $session = $stripe->checkout->sessions->create([
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url' => route('checkout.success',[],true).'?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('checkout.cancel',[],true),
+            ]);
+```
+- at that moment the customer will be created with its info that we can retrieve if we miss this line the session or payment will be registered as guest which cant retrieve a customer although of this we can get its email or som other info check the returned session json in the two cases

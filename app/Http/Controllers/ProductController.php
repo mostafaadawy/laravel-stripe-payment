@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Throw_;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProductController extends Controller
 {
@@ -39,7 +41,8 @@ class ProductController extends Controller
         $session = $stripe->checkout->sessions->create([
             'line_items' => $lineItems,
             'mode' => 'payment',
-            'success_url' => route('checkout.success'.'?session_id={CHECKOUT_SESSION_ID}',[],true),
+            'customer_creation'=> 'always',
+            'success_url' => route('checkout.success',[],true).'?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('checkout.cancel',[],true),
             ]);
 
@@ -55,17 +58,11 @@ class ProductController extends Controller
     {
         $session_id= $request->get('session_id');
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
-        try {
-            $session = $stripe->checkout->sessions->retrieve($_GET['session_id']);
-            $customer = $stripe->customers->retrieve($session->customer);
-            echo "<h1>Thanks for your order, $customer->name!</h1>";
-            http_response_code(200);
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['error' => $e->getMessage()]);
-        }
-        $session = $stripe->checkout->sessions->retrieve($_GET['session_id']);
+        $session = $stripe->checkout->sessions->retrieve($session_id);
+        if(!$session) throw new NotFoundHttpException();
         $customer = $stripe->customers->retrieve($session->customer);
+
+
 
 
         return view('product.checkout-success', compact('customer'));
