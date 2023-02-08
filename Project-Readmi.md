@@ -191,3 +191,6 @@ Route::get('/', [ProductController::class, 'index']);
     'cancel_url' => route('checkout.cancel',[],true),
 ```
 - where `true` is required for sending absolute url where it is link outside the project to stripe
+- in success we need to create an order
+- so from stripe session creation we need stripe session id to join it with the order
+- we create order object ort recode with unpaid status

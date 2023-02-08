@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,9 @@ class ProductController extends Controller
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
         $products = Product::all();
         $lineItems = [];
+        $totalPrice=0;
         foreach($products as $product){
+            $totalPrice += $product->price;
             $lineItems[] = [
                 'price_data' => [
                   'currency' => 'usd',
@@ -26,7 +29,7 @@ class ProductController extends Controller
                     'name' => $product->name,
                     'images' => [$product->image],
                   ],
-                  'unit_amount' => $product->amount,
+                  'unit_amount' => $product->amount *100,
                 ],
                 'quantity' => $product->price,
             ];
@@ -37,6 +40,13 @@ class ProductController extends Controller
         'success_url' => route('checkout.success',[],true),
         'cancel_url' => route('checkout.cancel',[],true),
         ]);
+        $order = new Order();
+        $order->status='unpaid';
+        $order->total_price= $totalPrice;
+        $order->session_id= $totalPrice;
+        $order->status='unpaid';
+        $order->save();
+
         return redirect($session->url);
     }
     public function success()
