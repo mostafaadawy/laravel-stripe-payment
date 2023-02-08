@@ -299,4 +299,10 @@ $session_id= $request->get('session_id');
 - note that `424242424242` card number is for test and it always returns success for other testing status check this [link](https://stripe.com/docs/payments/accept-a-payment?platform=web) for deferent card numbers for testing
 - to make errors more user friendly we use try and catch
 # Now it is a time to change order status from unpaid to paid when receiving accepted payment
+- note `return dd($order)` as same as 
+```sh
+    echo '<pre>';
+    var_dump($order);
+    echo '</pre>';
+```
 - 
