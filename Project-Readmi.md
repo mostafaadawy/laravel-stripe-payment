@@ -233,4 +233,6 @@ Route::get('/', [ProductController::class, 'index']);
         return redirect($session->url);
     }
 ```
-
+- error Invalid integer: `Invalid integer: ` when creating session callback error
+- install sqlite viewer for vscode tio check tables `SQLite Viewer`
+- 
