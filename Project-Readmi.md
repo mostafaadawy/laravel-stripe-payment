@@ -155,4 +155,39 @@ Route::get('/', [ProductController::class, 'index']);
 - between key and session creation we have to provide the product that we have to buy
 - where we have to fill or replace lineItems with our product items 
 - the session it self is created from stripe checkout create based our test key public key that we obtain from logged in dashboard from stripe website after we create our stripe account
-
+- check the code
+```sh
+ public function checkout()
+    {
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+        $products = Product::all();
+        $lineItems = [];
+        foreach($products as $product){
+            $lineItems[] = [
+                'price_data' => [
+                  'currency' => 'usd',
+                  'product_data' => [
+                    'name' => $product->name,
+                    'images' => [$product->image],
+                  ],
+                  'unit_amount' => $product->amount,
+                ],
+                'quantity' => $product->price,
+            ];
+        }
+        $session = $stripe->checkout->sessions->create([
+        'line_items' => $lineItems,
+        'mode' => 'payment',
+        'success_url' => 'http://localhost:4242/success',
+        'cancel_url' => 'http://localhost:4242/cancel',
+        ]);
+        return redirect($session->url);
+    }
+```
+- then create to new links with function for success session call and cancel one
+- use the links for session success and cancel call back
+```sh
+    'success_url' => route('checkout.success',[],true),
+    'cancel_url' => route('checkout.cancel',[],true),
+```
+- where `true` is required for sending absolute url where it is link outside the project to stripe

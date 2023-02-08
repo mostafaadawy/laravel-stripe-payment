@@ -34,9 +34,18 @@ class ProductController extends Controller
         $session = $stripe->checkout->sessions->create([
         'line_items' => $lineItems,
         'mode' => 'payment',
-        'success_url' => 'http://localhost:4242/success',
-        'cancel_url' => 'http://localhost:4242/cancel',
+        'success_url' => route('checkout.success',[],true),
+        'cancel_url' => route('checkout.cancel',[],true),
         ]);
         return redirect($session->url);
     }
+    public function success()
+    {
+
+    }
+    public function Cancel()
+    {
+
+    }
+
 }
