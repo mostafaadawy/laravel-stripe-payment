@@ -310,3 +310,5 @@ $session_id= $request->get('session_id');
 - check for the order
 - if ok change order status and save it
 - know after this change if we refresh the page it give not found 
+# BUT
+- from the previous methodology if the link according to any problem is not redirected back it will save that it is successfully paid in stripe while here in the order status it remains unpaid 
