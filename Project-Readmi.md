@@ -298,3 +298,5 @@ $session_id= $request->get('session_id');
 - actually i also created manually a customer but it doesn't solve the problem but this line solved it `'customer_creation'=> 'always',`
 - note that `424242424242` card number is for test and it always returns success for other testing status check this [link](https://stripe.com/docs/payments/accept-a-payment?platform=web) for deferent card numbers for testing
 - to make errors more user friendly we use try and catch
+# Now it is a time to change order status from unpaid to paid when receiving accepted payment
+- 
