@@ -308,4 +308,5 @@ $session_id= $request->get('session_id');
 - deference between dd() and var_dump us var_dump return both normal page pluse dumped data while dd return only dumped 
 - increase where for unpaid status
 - check for the order
+- if ok change order status and save it
 - 

@@ -70,9 +70,11 @@ class ProductController extends Controller
             if(!$order){
                 throw new NotFoundHttpException();
             }
-            echo '<pre>';
-            var_dump($order);
-            echo '</pre>';
+            $order->status='paid';
+            $order->save();
+            // echo '<pre>';
+            // var_dump($order);
+            // echo '</pre>';
         }
        catch(Expression $e){
             throw new NotFoundHttpException();
