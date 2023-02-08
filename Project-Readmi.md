@@ -148,4 +148,11 @@ Route::get('/', [ProductController::class, 'index']);
 - to use stripe we have to check the Doc for [stripe accept payment](https://stripe.com/docs/payments/accept-a-payment) 
 - begging with installation then adding some code snippets from the documentation for stripe session
 - we have to set API key for stripe 
+- then we have to create our session
+- then redirect to session url
+- after creating account on stripe go to dashboard select test key replace the session key
+- it is better to add this key in `.env` and call it
+- between key and session creation we have to provide the product that we have to buy
+- where we have to fill or replace lineItems with our product items 
+- the session it self is created from stripe checkout create dased our test key public key that we obtain from loged in dashboard from stripe website after we create our stripe account
 
