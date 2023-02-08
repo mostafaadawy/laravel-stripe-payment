@@ -19,27 +19,20 @@ class ProductController extends Controller
         $products = Product::all();
         $lineItems = [];
         foreach($products as $product){
-            $lineItems[]=[
-                'price_data'=> 'usd',
-                'product_data'=>[
+            $lineItems[] = [
+                'price_data' => [
+                  'currency' => 'usd',
+                  'product_data' => [
                     'name' => $product->name,
-                    'images' => $product->image
+                    'images' => [$product->image],
+                  ],
+                  'unit_amount' => $product->amount,
                 ],
-                'unit_amount'=>$product->price *100,
-            ],
-                'quantity'=>1,
+                'quantity' => $product->price,
+            ];
         }
         $session = $stripe->checkout->sessions->create([
-        'line_items' => [[
-            'price_data' => [
-            'currency' => 'usd',
-            'product_data' => [
-                'name' => 'T-shirt',
-            ],
-            'unit_amount' => 2000,
-            ],
-            'quantity' => 1,
-        ]],
+        'line_items' => $lineItems,
         'mode' => 'payment',
         'success_url' => 'http://localhost:4242/success',
         'cancel_url' => 'http://localhost:4242/cancel',
