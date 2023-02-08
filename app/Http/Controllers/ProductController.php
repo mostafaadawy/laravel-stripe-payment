@@ -39,7 +39,7 @@ class ProductController extends Controller
         $session = $stripe->checkout->sessions->create([
             'line_items' => $lineItems,
             'mode' => 'payment',
-            'success_url' => route('checkout.success',[],true),
+            'success_url' => route('checkout.success'.'?session_id={CHECKOUT_SESSION_ID}',[],true),
             'cancel_url' => route('checkout.cancel',[],true),
             ]);
 
@@ -51,9 +51,24 @@ class ProductController extends Controller
 
         return redirect($session->url);
     }
-    public function success()
+    public function success(Request $request)
     {
-        return view('product.checkout-success');
+        $session_id= $request->get('session_id');
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+        try {
+            $session = $stripe->checkout->sessions->retrieve($_GET['session_id']);
+            $customer = $stripe->customers->retrieve($session->customer);
+            echo "<h1>Thanks for your order, $customer->name!</h1>";
+            http_response_code(200);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+        $session = $stripe->checkout->sessions->retrieve($_GET['session_id']);
+        $customer = $stripe->customers->retrieve($session->customer);
+
+
+        return view('product.checkout-success', compact('customer'));
 
     }
     public function Cancel()

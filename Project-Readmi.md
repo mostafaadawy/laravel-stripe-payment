@@ -239,4 +239,35 @@ Route::get('/', [ProductController::class, 'index']);
 - when we try checkout now it works well
 - filling any fake data in card credentials
 - then it will redirect to the success get link that we specify in session
-- 
+- but as we can guess here success url is global not specific for certain session id and to avoid this we have to send back session id with success as in [doc for custom success page](https://stripe.com/docs/payments/checkout/custom-success-page) 
+- by inserting `'?session_id={CHECKOUT_SESSION_ID}'` to success url in checkout in product controller `'success_url' => route('checkout.success'.'?session_id={CHECKOUT_SESSION_ID}',[],true),`
+- and in success callback function extract session id from request
+```sh
+$session_id= $request->get('session_id');
+```
+- or we can use the [custom success page doc](https://stripe.com/docs/payments/checkout/custom-success-page) to get info about the custoar  check the code
+```sh
+ public function success(Request $request)
+    {
+        $session_id= $request->get('session_id');
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+        try {
+            $session = $stripe->checkout->sessions->retrieve($_GET['session_id']);
+            $customer = $stripe->customers->retrieve($session->customer);
+            echo "<h1>Thanks for your order, $customer->name!</h1>";
+            http_response_code(200);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+        $session = $stripe->checkout->sessions->retrieve($_GET['session_id']);
+        $customer = $stripe->customers->retrieve($session->customer);
+
+
+        return view('product.checkout-success', compact('customer'));
+
+    }
+```
+- and in page we can show `$customer->name`
+- try the checkout and pay by fake testing any credentials and check the success
+
