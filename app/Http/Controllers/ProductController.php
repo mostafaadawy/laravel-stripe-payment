@@ -75,16 +75,11 @@ class ProductController extends Controller
             // echo '<pre>';
             // var_dump($order);
             // echo '</pre>';
+            return view('product.checkout-success', compact('customer'));
         }
        catch(Expression $e){
             throw new NotFoundHttpException();
        }
-
-
-
-
-        return view('product.checkout-success', compact('customer'));
-
     }
     public function Cancel()
     {
