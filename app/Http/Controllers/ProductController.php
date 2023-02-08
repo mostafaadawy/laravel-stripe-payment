@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use Exception;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Throw_;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -56,11 +58,16 @@ class ProductController extends Controller
     }
     public function success(Request $request)
     {
-        $session_id= $request->get('session_id');
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
-        $session = $stripe->checkout->sessions->retrieve($session_id);
-        if(!$session) throw new NotFoundHttpException();
-        $customer = $stripe->customers->retrieve($session->customer);
+        try{
+            $session_id= $request->get('session_id');
+            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+            $session = $stripe->checkout->sessions->retrieve($session_id);
+            if(!$session) throw new NotFoundHttpException();
+            $customer = $stripe->customers->retrieve($session->customer);
+        }
+       catch(Expression $e){
+            throw new NotFoundHttpException();
+       }
 
 
 
