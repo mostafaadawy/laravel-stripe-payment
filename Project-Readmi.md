@@ -313,4 +313,7 @@ $session_id= $request->get('session_id');
 # BUT and WebHooks
 - from the previous methodology if the link according to any problem is not redirected back it will save that it is successfully paid in stripe while here in the order status it remains unpaid
 - here we solve by [webHooks](https://dashboard.stripe.com/test/webhooks)
-- 
+- webhook will interact with the session then save it and then will return to webhook url link on your site not to customer then our site will notify customer
+- first create webhook  post function to recevive data fromm stripe 
+- create url post route for the hook
+- as this is post from other site som `csrf` middleware will refuse this connection so we have to allow this hook by adding it in the exception urls in `VerifyCsrfToken.php` middleware `'webhook'`
