@@ -306,3 +306,4 @@ $session_id= $request->get('session_id');
     echo '</pre>';
 ```
 - deference between dd() and var_dump us var_dump return both normal page pluse dumped data while dd return only dumped 
+- 

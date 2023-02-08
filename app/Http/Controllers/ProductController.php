@@ -64,7 +64,7 @@ class ProductController extends Controller
             $session = $stripe->checkout->sessions->retrieve($session_id);
             if(!$session) throw new NotFoundHttpException();
             $customer = $stripe->customers->retrieve($session->customer);
-            $order = Order::where('session_id', $session->id)->get();
+            $order = Order::where('session_id', $session->id)->first();
             echo '<pre>';
             var_dump($order);
             echo '</pre>';
