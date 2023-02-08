@@ -67,6 +67,9 @@ class ProductController extends Controller
             $order = Order::where('session_id', $session->id)
             ->where('status', 'unpaid')
             ->first();
+            if(!$order){
+                throw new NotFoundHttpException();
+            }
             echo '<pre>';
             var_dump($order);
             echo '</pre>';
