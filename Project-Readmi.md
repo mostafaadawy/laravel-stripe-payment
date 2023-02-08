@@ -316,4 +316,4 @@ $session_id= $request->get('session_id');
 - webhook will interact with the session then save it and then will return to webhook url link on your site not to customer then our site will notify customer
 - first create webhook  post function to recevive data fromm stripe 
 - create url post route for the hook
-- as this is post from other site som `csrf` middleware will refuse this connection so we have to allow this hook by adding it in the exception urls in `VerifyCsrfToken.php` middleware `'webhook'`
+- as this is post from other site som `csrf` middleware will refuse this connection so we have to allow this hook by adding it in the exception urls in `VerifyCsrfToken.php` middleware `'webhook'` this will allows us to receive from this webhook
