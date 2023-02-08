@@ -154,5 +154,5 @@ Route::get('/', [ProductController::class, 'index']);
 - it is better to add this key in `.env` and call it
 - between key and session creation we have to provide the product that we have to buy
 - where we have to fill or replace lineItems with our product items 
-- the session it self is created from stripe checkout create dased our test key public key that we obtain from loged in dashboard from stripe website after we create our stripe account
+- the session it self is created from stripe checkout create based our test key public key that we obtain from logged in dashboard from stripe website after we create our stripe account
 
