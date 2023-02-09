@@ -330,3 +330,5 @@ $session_id= $request->get('session_id');
 - now in the root of extracted stripe.exe in command cmd `./stripe listen --forward-to localhost:8000/webhook`to allow stripe cli listen
 - do not forget `./` for execution
 - let that terminal window open and we will need the secret key that will be generated for that session
+- tell this moment we downloaded the cli authentic it then listen and finally we can check it is working using this command `./stripe trigger payment_intent.succeeded` in other terminal in the same stripe place and watch what will be printed in the main listener terminal 
+- then we get that replay massage `[200] POST http://localhost:8000/webhook [evt_3MZbptCItBkDkz3L1FquSlT1]` that means that we are doing well
