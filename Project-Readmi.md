@@ -329,4 +329,4 @@ $session_id= $request->get('session_id');
 - as we are locale hosted so our stripe webhooks cannot listen  where no ip link is assigned but our stripe cli can listen to our webhooks and forward that to our local project
 - now in the root of extracted stripe.exe in command cmd `./stripe listen --forward-to localhost:8000/webhook`to allow stripe cli listen
 - do not forget `./` for execution
-- let that terminal window open 
+- let that terminal window open and we will need the secret key that will be generated for that session
