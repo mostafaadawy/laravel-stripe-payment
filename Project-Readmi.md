@@ -319,6 +319,9 @@ $session_id= $request->get('session_id');
 - as this is post from other site som `csrf` middleware will refuse this connection so we have to allow this hook by adding it in the exception urls in `VerifyCsrfToken.php` middleware `'webhook'` this will allows us to receive from this webhook
 - if we are in production we can link our hook [here](https://dashboard.stripe.com/test/webhooks/create)
 - but as we are in localHosting we will do as explained [here](https://dashboard.stripe.com/test/webhooks/create?endpoint_location=local)
-- according to this documentation we have to install cli
+- according to this documentation we have to install cli [link](https://github.com/stripe/stripe-cli/releases/tag/v1.13.8)
 # Note Stripe credential in private repo StartingUp
-- 
+- as in documentation in the downloaded and extracted stripe.exe from cmd terminal `./stripe.exe login`
+- a link will be generated with to verify its you then you allow access so we link the cli
+- now we authorized stripe cli
+- we will get this massage `Please note: this key will expire after 90 days, at which point you'll need to re-authenticate.` and that means our token will need this action after 90 day
