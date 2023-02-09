@@ -335,3 +335,6 @@ $session_id= $request->get('session_id');
 - lets implement the webhook code 
 - from the same [link](https://dashboard.stripe.com/test/webhooks/create?endpoint_location=local) we can use the code in the right side but change te language to php or your required language
 - after copying the code remove `require autoload` and change the endpoint secret key with your session key in the remained opened terminal `whsec_9bd02e531f9f202bd73cac39a9902725782d452f429651371f14974ed185e04e`
+- more effecient if we put this secret in our env file `STRIPE_WEBHOOK_SECRET=whsec_9bd02e531f9f202bd73cac39a9902725782d452f429651371f14974ed185e04e` and call it from env in our code
+- this code is mainly trigger a webhook event based signature header, payload and secret key- and event handler 
+- in this handler a switch case to do something with every status of the payment

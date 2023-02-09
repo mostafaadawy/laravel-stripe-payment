@@ -99,7 +99,7 @@ class ProductController extends Controller
         // 3) Run the server on http://localhost:4242
         //   php -S localhost:8000
         // This is your Stripe CLI webhook secret for testing your endpoint locally.
-        $endpoint_secret = 'whsec_9bd02e531f9f202bd73cac39a9902725782d452f429651371f14974ed185e04e';
+        $endpoint_secret = env('STRIPE_WEBHOOK_SECRET');
 
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
@@ -110,13 +110,15 @@ class ProductController extends Controller
             $payload, $sig_header, $endpoint_secret
           );
         } catch(\UnexpectedValueException $e) {
-          // Invalid payload
-          http_response_code(400);
-          exit();
+            // Invalid payload
+            //http_response_code(400);
+            //exit();
+            return response('', 400);
         } catch(\Stripe\Exception\SignatureVerificationException $e) {
-          // Invalid signature
-          http_response_code(400);
-          exit();
+            // Invalid signature
+            //http_response_code(400);
+            //exit();
+            return response('', 400);
         }
 
         // Handle the event
@@ -128,7 +130,7 @@ class ProductController extends Controller
             echo 'Received unknown event type ' . $event->type;
         }
 
-        http_response_code(200);
+        return response('');
     }
 
 }
