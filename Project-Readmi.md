@@ -321,3 +321,4 @@ $session_id= $request->get('session_id');
 - but as we are in localHosting we will do as explained [here](https://dashboard.stripe.com/test/webhooks/create?endpoint_location=local)
 - according to this documentation we have to install cli
 # Note Stripe credential in private repo StartingUp
+- 
