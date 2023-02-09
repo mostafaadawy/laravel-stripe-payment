@@ -324,4 +324,9 @@ $session_id= $request->get('session_id');
 - as in documentation in the downloaded and extracted stripe.exe from cmd terminal `./stripe.exe login`
 - a link will be generated with to verify its you then you allow access so we link the cli
 - now we authorized stripe cli
-- we will get this massage `Please note: this key will expire after 90 days, at which point you'll need to re-authenticate.` and that means our token will need this action after 90 day
+- we will get this massage in the console `Please note: this key will expire after 90 days, at which point you'll need to re-authenticate.` and that means our token will need this action after 90 day
+- now we will start lessening forward to our local
+- as we are locale hosted so our stripe webhooks cannot listen  where no ip link is assigned but our stripe cli can listen to our webhooks and forward that to our local project
+- now in the root of extracted stripe.exe in command cmd `./stripe listen --forward-to localhost:8000/webhook`to allow stripe cli listen
+- do not forget `./` for execution
+- let that terminal window open 
