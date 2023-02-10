@@ -138,8 +138,16 @@ class ProductController extends Controller
             $paymentIntent = $event->data->object;
           // ... handle other event types
           case 'checkout.session.completed':
-            $paymentIntent = $event->data->object;
-          // ... handle other event types
+            $session = $event->data->object;
+            $order = Order::where('session_id', $session->id)
+            ->where('status', 'unpaid')
+            ->first();
+            if($order){
+                $order->status='paid';
+                $order->save();
+                // send email to customer
+            }
+
           default:
             echo 'Received unknown event type ' . $event->type;
         }

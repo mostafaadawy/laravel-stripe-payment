@@ -373,4 +373,4 @@ php artisan cache:clear
             echo 'Received unknown event type ' . $event->type;
         }
 ```
-- 
+- we are careering in this moment with updating order that has succeeded session but not completed so that its order status still unpaid and change it to paid
