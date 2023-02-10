@@ -374,3 +374,15 @@ php artisan cache:clear
         }
 ```
 - we are careering in this moment with updating order that has succeeded session but not completed so that its order status still unpaid and change it to paid
+- so in the case of checkout.completed we change the order status
+```sh
+          case 'checkout.session.completed':
+            $session = $event->data->object;
+            $order = Order::where('session_id', $session->id)->first();
+            if($order && $order->status=='unpaid'){
+                $order->status='paid';
+                $order->save();
+                // send email to customer
+            }
+```
+- 
