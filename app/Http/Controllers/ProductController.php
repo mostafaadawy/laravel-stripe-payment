@@ -71,8 +71,11 @@ class ProductController extends Controller
             if(!$order){
                 throw new NotFoundHttpException();
             }
-            $order->status='paid';
-            $order->save();
+            if($order && $order->status=='unpaid'){
+                $order->status='paid';
+                $order->save();
+            }
+
             // echo '<pre>';
             // var_dump($order);
             // echo '</pre>';
@@ -139,10 +142,8 @@ class ProductController extends Controller
           // ... handle other event types
           case 'checkout.session.completed':
             $session = $event->data->object;
-            $order = Order::where('session_id', $session->id)
-            ->where('status', 'unpaid')
-            ->first();
-            if($order){
+            $order = Order::where('session_id', $session->id)->first();
+            if($order && $order->status=='unpaid'){
                 $order->status='paid';
                 $order->save();
                 // send email to customer
