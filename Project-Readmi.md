@@ -338,3 +338,10 @@ $session_id= $request->get('session_id');
 - more effecient if we put this secret in our env file `STRIPE_WEBHOOK_SECRET=whsec_9bd02e531f9f202bd73cac39a9902725782d452f429651371f14974ed185e04e` and call it from env in our code
 - this code is mainly trigger a webhook event based signature header, payload and secret key- and event handler 
 - in this handler a switch case to do something with every status of the payment
+- error can not read from .env config `stripe\exception\invalidargumentexception $config must be a string or an array` we can solve this by 
+```sh
+php artisan config:clear
+php artisan cache:clear
+```
+- note that `php artisan config:cache`
+

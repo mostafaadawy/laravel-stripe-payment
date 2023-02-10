@@ -22,6 +22,7 @@ class ProductController extends Controller
     public function checkout()
     {
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+
         $products = Product::all();
         $lineItems = [];
         $totalPrice=0;
