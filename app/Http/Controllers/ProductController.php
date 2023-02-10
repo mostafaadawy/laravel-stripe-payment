@@ -122,7 +122,22 @@ class ProductController extends Controller
 
         // Handle the event
         switch ($event->type) {
+          case 'customer.created':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
+          case 'charge.succeeded':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
+          case 'payment_intent.created':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
+          case 'payment_intent.canceled':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
           case 'payment_intent.succeeded':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
+          case 'checkout.session.completed':
             $paymentIntent = $event->data->object;
           // ... handle other event types
           default:

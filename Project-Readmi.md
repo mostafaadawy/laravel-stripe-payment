@@ -346,4 +346,31 @@ php artisan cache:clear
 - note that `php artisan config:cache`
 - we can create payment noe and check the powershell window that we listen forward to our localhost:8000/webhook
 - if we want to check all the local webhook actions done `if we not refresh the page` we can check this [link](https://dashboard.stripe.com/test/webhooks/create?endpoint_location=local) right side received events tap
+- from these events we can see that id will be the session id
+- so we have many events to handle  check that in swatch event case handler
+```sh
+// Handle the event
+        switch ($event->type) {
+          case 'customer.created':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
+          case 'charge.succeeded':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
+          case 'payment_intent.created':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
+          case 'payment_intent.canceled':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
+          case 'payment_intent.succeeded':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
+          case 'checkout.session.completed':
+            $paymentIntent = $event->data->object;
+          // ... handle other event types
+          default:
+            echo 'Received unknown event type ' . $event->type;
+        }
+```
 - 
