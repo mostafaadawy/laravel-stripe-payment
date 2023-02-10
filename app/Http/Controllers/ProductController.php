@@ -86,7 +86,7 @@ class ProductController extends Controller
     {
 
     }
-    public function webhook(Request $request)
+    public function webhook()
     {
         // webhook.php
         //
@@ -97,15 +97,13 @@ class ProductController extends Controller
         // 2) Install dependencies
         //   composer require stripe/stripe-php
         //
-        // 3) Run the server on http://localhost:4242
+        // 3) Run the server on http://localhost:8000
         //   php -S localhost:8000
         // This is your Stripe CLI webhook secret for testing your endpoint locally.
         $endpoint_secret = env('STRIPE_WEBHOOK_SECRET');
-
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
         $event = null;
-
         try {
           $event = \Stripe\Webhook::constructEvent(
             $payload, $sig_header, $endpoint_secret
