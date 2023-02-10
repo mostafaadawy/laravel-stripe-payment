@@ -387,3 +387,4 @@ php artisan cache:clear
 ```
 - to test that webhook we can close the terminal just after paying and before redirect
 - so we will found that order status will be changed
+- for cancellation and other status events in webhook we can create it the same way
