@@ -385,4 +385,5 @@ php artisan cache:clear
                 // send email to customer
             }
 ```
-- 
+- to test that webhook we can close the terminal just after paying and before redirect
+- so we will found that order status will be changed
