@@ -344,4 +344,5 @@ php artisan config:clear
 php artisan cache:clear
 ```
 - note that `php artisan config:cache`
+- we can create payment noe and check the powershell window that we listen forward to our localhost:8000/webhook
 - 
